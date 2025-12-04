@@ -88,3 +88,17 @@ If you're using nano, press Ctrl + X, then press Y to confirm, and Enter to save
 If you're using vim, press Esc, then type :wq and hit Enter to save and exit.
 
 # Note. in this we set auto run our fetch_abuseipdb_blacklist.sh script at 11:00 AM on Daily basis.
+
+
+# For Office365 failed Login attempts -
+
+        
+       <group name="office365, office365, AzureActiveDirectoryStsLogon">
+         <rule id="101105" level="12">
+           <options>alert_by_email</options>
+           <if_group>office365</if_group>
+           <list field="office365.ClientIP" lookup="address_match_key">etc/lists/abuseipdb_blacklist</list>
+           <description>Office365: Client IP matches AbuseIPDB blacklist. $(office365.UserId) operation $(office365.Operation)</des>
+           <group>office365,AzureActiveDirectoryStsLogon,</group>
+         </rule>
+       </group>
