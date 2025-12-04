@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # === CONFIGURATION ===
-ABUSEIPDB_API_KEY="ee8318a44fea92403abb24b208a93818272bf0a4e806111fa949aa42fde1a3356874d391e3d64320"
+ABUSEIPDB_API_KEY="Your abuse api key here"
 LIST_PATH="/var/ossec/etc/lists/abuseipdb_blacklist"
 WEB_IP_LIST="/var/www/html/blocked_ips.txt"
 LOG_FILE="/var/log/abuseipdb_update.log"
