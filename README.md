@@ -94,7 +94,7 @@ If you're using vim, press Esc, then type :wq and hit Enter to save and exit.
 
         
        <group name="office365, office365, AzureActiveDirectoryStsLogon">
-         <rule id="101105" level="12">
+         <rule id="101106" level="12">
            <options>alert_by_email</options>
            <if_group>office365</if_group>
            <list field="office365.ClientIP" lookup="address_match_key">etc/lists/abuseipdb_blacklist</list>
