@@ -53,4 +53,37 @@ here we target the "dstip" and "srcip"
                  <group>fortigate,local,</group>
                </rule>
               </group>
-          
+
+
+# Follow here for detecion with Windows and Wazuh
+
+              <!-- Abnormal Destination IP Detection by AbuseIPDB list -->
+              <group name="windows, sysmon, sysmon_event3">
+              <rule id="101103" level="12">
+                <if_group>sysmon_event3</if_group>
+                <list field="win.eventdata.destinationIp" lookup="address_match_key">etc/lists/abuseipdb_blacklist</list>
+                <description>Sysmon - Event 3: Network connection to a suspicious IP from the AbuseIPDB blacklist by $(win.eventdata.image)</$
+                <group>sysmon_event3,</group>
+              </rule>
+              </group>
+
+
+              sudo systemctl restart wazuh-manager
+# NOTE: For windows detection you have to enabled Sysmon events.
+
+# To do auto update suspicious ip list from abuseIPDB we need to set crontab.
+
+in terminal :
+
+              crontab -e
+
+
+              0 11 * * * /path/to/your/script.sh
+
+Example: 
+              0 11 * * * /var/ossec/etc/lists/AbuseIPDB/fetch_abuseipdb_blacklist.sh
+Save and exit the editor.
+If you're using nano, press Ctrl + X, then press Y to confirm, and Enter to save the changes.
+If you're using vim, press Esc, then type :wq and hit Enter to save and exit.
+
+# Note. in this we set auto run our fetch_abuseipdb_blacklist.sh script at 11:00 AM on Daily basis.
