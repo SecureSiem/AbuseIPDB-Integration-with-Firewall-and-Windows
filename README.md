@@ -23,3 +23,34 @@ Step 4: After creating the list, we need to tell Wazuh to load this list. Wazuh 
 
 
 Step 5: systemctl restart wazuh-manager
+
+# Now here follow for Fortigate firewall with wazuh detection.
+
+here we target the "dstip" and "srcip"
+
+1. Just add these rules in place,
+          nano /var/ossec/etc/rules/local_rules.xml
+
+          <!-- Abnormal Destination IP Detection by AbuseIPDB list -->
+              <group name="fortigate, syslog, local, sshd">
+               <rule id="101103" level="12">
+                 <options>alert_by_email</options>
+                 <if_group>fortigate</if_group>
+                 <list field="dstip" lookup="address_match_key">etc/lists/abuseipdb_blacklist</list>
+                 <description>FortiGate: Destination IP is in the AbuseIPDB blacklist. $(msg)</description>
+                 <group>fortigate,</group>
+               </rule>
+              </group>
+
+
+          <!-- Abnormal Source IP Detection by AbuseIPDB list -->
+              <group name="fortigate, syslog, local, sshd, authentication_failed, invalid_login">
+               <rule id="101104" level="12">
+                 <options>alert_by_email</options>
+                 <if_group>fortigate</if_group>
+                 <list field="srcip" lookup="address_match_key">etc/lists/abuseipdb_blacklist</list>
+                 <description>FortiGate: Destination IP is in the AbuseIPDB blacklist. $(msg)</description>
+                 <group>fortigate,local,</group>
+               </rule>
+              </group>
+          
