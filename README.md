@@ -81,6 +81,7 @@ in terminal :
               0 11 * * * /path/to/your/script.sh
 
 Example: 
+
               0 11 * * * /var/ossec/etc/lists/AbuseIPDB/fetch_abuseipdb_blacklist.sh
 Save and exit the editor.
 If you're using nano, press Ctrl + X, then press Y to confirm, and Enter to save the changes.
